@@ -82,7 +82,7 @@ with open('sample.csv') as csv_file:
                 if current_time == int(row[1]):
                     notes.append(int(row[4]))
                 else:
-                    if len(notes) > 1 and row[0] == '6':    # 3 for sample and 6 for one_of_us
+                    if len(notes) > 1 and row[0] == '3':    # 3 for sample and 6 for one_of_us
                         # search_chord(chord)
                         print('\n')
                         print(current_time)
@@ -105,23 +105,34 @@ with open('sample.csv') as csv_file:
                         for c in chord:
                             print(c.name)
                         if len(chord) == 3:
-                            print('Is triad')
-                            if (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 3:
-                                print("Is Major: " + chord[0].name)
-                            elif (chord[1].col - chord[0].col) == 3 and (chord[2].col - chord[1].col) == 4:
-                                print('Is Minor: '+ chord[0].name + 'm')
-                            elif (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 4:
-                                print('Is Augmented: '+ chord[0].name + ' augmented')
-                            elif (chord[1].col - chord[0].col) == 3 and (chord[2].col - chord[1].col) == 3:
-                                print('Is Diminished: '+ chord[0].name + 'dim')
-                            else:
-                                print('Not determined')
+                            print(chord[0].col)
 
-                            for c in chord:
-                                if (c.col - chord[0].col) == 7:
-                                    print('Is 7th')
-                                elif (c.col - chord[0].col) == 9:
-                                    print('Is 9th')
+                            print('Is triad')
+                            for i in range(3):
+                                base = chord[(i) % 3].col;
+                                third = chord[(i + 1) % 3].col;
+                                fifth = chord[(i + 2) % 3].col;
+                                if(third < base):
+                                    third = third + 12
+                                if( fifth < base):
+                                    fifth = fifth + 12
+                                if(fifth - base) == 7:
+                                    if (third - base) == 4:
+                                        print("Is Major: " + chord[i].name)
+                                    elif (third - base) == 3:
+                                        print('Is Minor: '+ chord[i].name + 'm')
+#                                    elif (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 4:
+#                                        print('Is Augmented: '+ chord[0].name + ' augmented')
+#                                    elif (chord[1].col - chord[0].col) == 3 and (chord[2].col - chord[1].col) == 3:
+#                                        print('Is Diminished: '+ chord[0].name + 'dim')
+                                else:
+                                    print('Not determined for this rotation')
+
+                            #for c in chord:
+                            #    if (c.col - chord[0].col) == 11:
+                            #        print('Is 7th')
+                            #    elif (c.col - chord[0].col) == 9:
+                            #        print('Is 9th')
 
                     notes = []
                     chord = []
