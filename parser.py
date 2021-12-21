@@ -159,5 +159,3 @@ with open('sample.csv') as csv_file:
     print('Chord progression: ' + chordStack.get_chord_progression().__str__())
     print('Key signature: ' + chordStack.get_key_signature())
     print('Avg. Tension: ' + chordStack.get_avg_tension().__str__())
-
-
