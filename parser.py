@@ -1,5 +1,5 @@
 import csv
-
+import ChordStack
 
 class Track(object):
     title = ""
@@ -58,6 +58,7 @@ with open('sample.csv') as csv_file:
     notes = []
     chord = []
     bpm = 0
+    chordStack = ChordStack.ChordStack()
     for row in csv_reader:
         line_count += 1
         if row[2] == ' End_track':
@@ -109,9 +110,9 @@ with open('sample.csv') as csv_file:
 
                             print('Is triad')
                             for i in range(3):
-                                base = chord[(i) % 3].col;
-                                third = chord[(i + 1) % 3].col;
-                                fifth = chord[(i + 2) % 3].col;
+                                base = chord[(i) % 3].col
+                                third = chord[(i + 1) % 3].col
+                                fifth = chord[(i + 2) % 3].col
                                 if(third < base):
                                     third = third + 12
                                 if( fifth < base):
@@ -119,8 +120,10 @@ with open('sample.csv') as csv_file:
                                 if(fifth - base) == 7:
                                     if (third - base) == 4:
                                         print("Is Major: " + chord[i].name)
+                                        chordStack.add_chord(chord[i].name)
                                     elif (third - base) == 3:
                                         print('Is Minor: '+ chord[i].name + 'm')
+                                        chordStack.add_chord(chord[i].name)
 #                                    elif (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 4:
 #                                        print('Is Augmented: '+ chord[0].name + ' augmented')
 #                                    elif (chord[1].col - chord[0].col) == 3 and (chord[2].col - chord[1].col) == 3:
@@ -144,13 +147,17 @@ with open('sample.csv') as csv_file:
                 track = track_switch(row,track)
 
     print('\n')
-    print("Tempo: " + str(csv_tempo))
-    print("BPM: " + str(bpm))
-    print('\n')
     print("Tracks")
-    print('\n')
     for t in tracks:
         print("Title:" + t.title)
         print("Instrument:" + str(t.instrument))
-        print("Pressure: " + str(t.avg_pressure))  
-        print('\n')     
+        print("Pressure: " + str(t.avg_pressure))
+        print('\n')
+    print("Tempo: " + str(csv_tempo))
+    print("BPM: " + str(bpm))
+    print('All chords: ' + chordStack.get_all_chords().__str__())
+    print('Chord progression: ' + chordStack.get_chord_progression().__str__())
+    print('Key signature: ' + chordStack.get_key_signature())
+    print('Avg. Tension: ' + chordStack.get_avg_tension().__str__())
+
+
