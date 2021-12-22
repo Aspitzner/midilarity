@@ -71,6 +71,7 @@ def get_song_by_row(row,has_distance):
     return Song(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],"",-1)
 
 def init_connection():
+
     con = psycopg2.connect(database="tp_midi", user="segundo", password="admin", host="localhost", port="5432")
     print("Database opened successfully")
     con.cursor().execute("create extension if not exists cube; create table if not exists midi (id SERIAL,title TEXT,artist TEXT,csv_tempo INTEGER,bpm INTEGER,time_signature TEXT,key_signature TEXT,avg_pressure INTEGER,stress INTEGER,file bytea,attributes cube,PRIMARY KEY (id));")
