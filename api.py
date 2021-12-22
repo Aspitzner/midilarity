@@ -120,9 +120,6 @@ def insert():
     os.system('midicsv input_mid.midi out.csv')
     csv_file = open('./out.csv')
     parser.parser(csv_file, artist)
-    
-    print(file.filename)
-    print(artist)
     return "Inserted succesfully"
 
 @app.route('/tracks?title=<string:title>&artist=<string:artist>', methods=['GET'])

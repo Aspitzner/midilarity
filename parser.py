@@ -35,7 +35,7 @@ class Note(object):
 
 
 def header_switch(row):
-    if row[2] == ' Title_t' or row[2] == ' Marker_t':
+    if row[2] == ' Title_t' or row[2] == ' Marker_t' or row[2] == ' Text_t':
         global title
         title = row[3]
     elif row[2] == ' Time_signature':
