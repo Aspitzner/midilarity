@@ -1,4 +1,5 @@
 from py2neo import Graph
+from parser import Track
 graph = Graph(host="localhost")
 
 class SimpleSong(object):
@@ -75,7 +76,10 @@ def get_song_tracks(title,artist):
     
     artists = tx.run('MATCH (a:Artist)<-[:played_by]-(s:Song)<-[:appears_in]-(t:Track)-[:instrument_type]->(i:Instrument) WHERE s.title = \'{0}\' and a.name = \'{1}\' return t,i'.format(title,artist))
     for a in artists:
-        result.append(SimpleTrack(a.values()[0]["name"],a.values()[1]["name"]))
+        ins = a.values()[1]["name"]
+        if ins is None:
+            ins = "Not found"
+        result.append(SimpleTrack(a.values()[0]["name"],ins))
 
     graph.commit(tx)
     return result

@@ -159,12 +159,12 @@ def parser(file, artist):
         trackList = list()
         chordStack = ChordStack.ChordStack()
         for t in tracks:
-            trackList.append(Track(t.title.replace('"', ''), t.instrument, t.avg_pressure))
+            trackList.append(Track(t.title.replace('"', ''), int(t.instrument), t.avg_pressure))
             print("Title:" + t.title)
             print("Instrument:" + str(t.instrument))
             print("Pressure: " + str(t.avg_pressure))
             print("Chord progression: " + t.chordStack.get_chord_progression().__str__())
-            if chordStack is None or t.chordStack.get_chord_progression().__len__() > chordStack.get_chord_progression().__len__():
+            if chordStack is not None and t.chordStack.get_chord_progression().__len__() > chordStack.get_chord_progression().__len__():
                 chordStack = t.chordStack
             avg_pressure += t.avg_pressure
             print('\n')

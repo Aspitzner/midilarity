@@ -5,8 +5,50 @@ import psql_connection
 import neo4j_connection
 import os
 import parser
+from urllib.parse import unquote
 
-app = Flask(__name__)
+from apiflask import APIFlask, Schema, input, output, abort
+from apiflask.fields import Integer, String
+from apiflask.validators import Length, OneOf
+
+from fastapi import FastAPI
+import uvicorn
+import json
+
+from flask import Flask
+from flask_swagger_ui import get_swaggerui_blueprint
+from pathlib import Path
+
+app = APIFlask(__name__)
+
+
+
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
+
+# Call factory function to create our blueprint
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Test application"
+    },
+)
+
+app.register_blueprint(swaggerui_blueprint)
+
+
+
+@app.route('/docs', methods=['GET'])
+def get_doc():
+    with open("openapi.json", "r") as openapi:
+        return json.load(openapi)
+
+class SongIdentifierInSchema(Schema):
+    name = String()
+    artist = String()
+
+
 
 # PSQL
 
@@ -30,12 +72,13 @@ def get_songs():
 @app.route('/similar', methods=['GET'])
 def get_similar():
     title = request.args.get('title')
-    artist = request.args.get('artist')
+    artist = unquote(request.args.get('artist'))
     if title is None or artist is None:
         return "Missing parameters"
     result = psql_connection.get_similar_songs(title,artist)
     if result is None:
         return {}
+    
     return jsonify(songs=[s.serialize() for s in result])
 
 @app.route('/intensity_ratio', methods=['GET'])
@@ -85,10 +128,12 @@ def insert():
     os.system('midicsv input_mid.midi out.csv')
     csv_file = open('./out.csv')
     parser.parser(csv_file, artist)
+    
     print(file.filename)
     print(artist)
     return "Inserted succesfully"
 
+@app.route('/tracks?title=<string:title>&artist=<string:artist>', methods=['GET'])
 @app.route('/tracks', methods=['GET'])
 def get_tracks():
     title = request.args.get('title')
@@ -101,6 +146,8 @@ def get_tracks():
     return jsonify(tracks=[s.serialize() for s in result])  
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8081)
+    app.run(host='127.0.0.1', port=5001)
 
-    
+
+app.run()
+   
