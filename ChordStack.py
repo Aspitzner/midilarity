@@ -39,20 +39,21 @@ class ChordStack:
         eight_chords_to_check = self.chordList[0:8]
         if eight_chords_to_check[0:4] != eight_chords_to_check[4:8]:
             eight_matches = self.check_chords(eight_chords_to_check)
-            if eight_matches >= (total_chords * 0.8) / 8:
-                print(eight_matches.__str__() + ' >= ' + ((total_chords * 0.8) / 8).__str__())
+            if eight_matches >= (total_chords * 0.6) / 8:
                 return eight_chords_to_check
 
         four_chords_to_check = self.chordList[0:4]
         if four_chords_to_check[0:2] != four_chords_to_check[2:4]:
             four_matches = self.check_chords(four_chords_to_check)
-            if four_matches >= (total_chords * 0.7) / 4:
+            if four_matches >= (total_chords * 0.6) / 4:
                 return four_chords_to_check
 
         two_chords_to_check = self.chordList[0:2]
         two_matches = self.check_chords(two_chords_to_check)
         if two_matches >= (total_chords * 0.6) / 2:
             return two_chords_to_check
+
+        return self.chordList
 
     def get_all_chords(self):
         return self.chordList

@@ -112,25 +112,26 @@ def parser(file, artist):
                             print('Chord')
                             for c in chord:
                                 print(c.name)
-                            if len(chord) == 3:
+                            if len(chord) >= 3:
                                 print(chord[0].col)
 
                                 print('Is triad')
-                                for i in range(3):
-                                    base = chord[i % 3].col
-                                    third = chord[(i + 1) % 3].col
-                                    fifth = chord[(i + 2) % 3].col
-                                    if third < base:
-                                        third = third + 12
-                                    if fifth < base:
-                                        fifth = fifth + 12
-                                    if (fifth - base) == 7:
-                                        if (third - base) == 4:
-                                            print("Is Major: " + chord[i].name)
-                                            track.chordStack.add_chord(chord[i].name)
-                                        elif (third - base) == 3:
-                                            print('Is Minor: ' + chord[i].name + 'm')
-                                            track.chordStack.add_chord(chord[i].name)
+                                for i in range(len(chord)):
+                                    base = chord[i % len(chord)].col
+                                    for j in range(len(chord) - 1):
+                                        third = chord[(i + 1 + j) % len(chord)].col
+                                        fifth = chord[(i + 2 + j) % len(chord)].col
+                                        if third < base:
+                                            third = third + 12
+                                        if fifth < base:
+                                            fifth = fifth + 12
+                                        if (fifth - base) == 7:
+                                            if (third - base) == 4:
+                                                print("Is Major: " + chord[i].name)
+                                                track.chordStack.add_chord(chord[i].name)
+                                            elif (third - base) == 3:
+                                                print('Is Minor: ' + chord[i].name + 'm')
+                                                track.chordStack.add_chord(chord[i].name + 'm')
                                     # elif (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 4:
                                     # print('Is Augmented: '+ chord[0].name + ' augmented') elif (chord[1].col - chord[
                                     # 0].col) == 3 and (chord[2].col - chord[1].col) == 3: print('Is Diminished: '+
@@ -164,7 +165,9 @@ def parser(file, artist):
             print("Instrument:" + str(t.instrument))
             print("Pressure: " + str(t.avg_pressure))
             print("Chord progression: " + t.chordStack.get_chord_progression().__str__())
-            if chordStack is not None and t.chordStack.get_chord_progression().__len__() > chordStack.get_chord_progression().__len__():
+            chordStackLength = chordStack.get_chord_progression().__len__()
+
+            if chordStackLength != 8 and chordStackLength != 4 and t.chordStack.get_chord_progression().__len__() > chordStackLength:
                 chordStack = t.chordStack
             avg_pressure += t.avg_pressure
             print('\n')

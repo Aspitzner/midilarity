@@ -6,18 +6,10 @@ import neo4j_connection
 import os
 import parser
 from urllib.parse import unquote
-
 from apiflask import APIFlask, Schema, input, output, abort
 from apiflask.fields import Integer, String
-from apiflask.validators import Length, OneOf
-
-from fastapi import FastAPI
-import uvicorn
 import json
-
-from flask import Flask
 from flask_swagger_ui import get_swaggerui_blueprint
-from pathlib import Path
 
 app = APIFlask(__name__)
 

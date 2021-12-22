@@ -71,7 +71,7 @@ def get_song_by_row(row,has_distance):
     return Song(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],"",-1)
 
 def init_connection():
-    con = psycopg2.connect(database="tp_midi", user="postgres", password="mypassword", host="localhost", port="5432")
+    con = psycopg2.connect(database="tp_midi", user="postgres", password="1234", host="localhost", port="5433")
     print("Database opened successfully")
     return con
 
