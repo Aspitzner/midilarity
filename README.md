@@ -13,3 +13,11 @@
 - py2neo
 - psycopg2
 ## Compilación
+-instalar las dependencias de pyhton con el comando:
+
+'''bash
+$ pip3 install py2neo
+'''
+'''bash
+$ pip3 install psycopg2
+'''
