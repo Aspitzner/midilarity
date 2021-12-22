@@ -67,5 +67,15 @@ $ docker run --name Myneo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none -d n
 $ python3 api.py
 ```
 - La api corre por default en el puerto 5001
-- Se puede ver la documentación de la api en la url
-`http://localhost:5001/api/docs`
+- Se puede ver la documentación de la api en la url: http://localhost:5001/api/docs
+
+### Queries de la api
+#### 1.
+#### 2.
+#### 3.
+#### 4.
+#### 5.
+#### 6.
+#### 7.
+#### 8.
+#### 9.
