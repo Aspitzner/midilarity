@@ -6,6 +6,10 @@
 - Espina, Segundo ' Legajo 60150
 ## Dependencias
 - python
--- dependencias de pyhton
---- py2neo
---- psycopg2
+- docker
+- neo4j
+- postgres
+### Librerías de pyhton
+- py2neo
+- psycopg2
+## Compilación
