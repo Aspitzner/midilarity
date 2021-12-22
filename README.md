@@ -9,7 +9,7 @@
 - docker
 - neo4j
 - postgres
-- 
+
 ### Librerías de pyhton
 - py2neo
 - psycopg2
@@ -70,12 +70,59 @@ $ python3 api.py
 - Se puede ver la documentación de la api en la url: http://localhost:5001/api/docs
 
 ### Queries de la api
-#### 1.
-#### 2.
-#### 3.
-#### 4.
-#### 5.
-#### 6.
-#### 7.
-#### 8.
-#### 9.
+
+#### 1. Obtener el feeling de un artista particular
+```
+http://localhost:5001/artist_feeling?artist=artist_name
+```
+donde artist_name es el nombre del artista del que quiero conocer el feeling
+
+#### 2. Ver si hay relación entre intensidad y tensión
+```
+http://localhost:5001/intensity_ratio
+```
+#### 3. Obtener la sequencia de acordes mas popular en la base de datos
+```
+http://localhost:5001/popular_sequence
+```
+#### 4. Obtener los artistas positivos en la base de datos
+```
+http://localhost:5001/positive_artists
+```
+#### 5. Obtener canciones similares a una elegida
+```
+http://localhost:5001/similar?title=my_title&artist=my_artist
+
+donde my_artist y My_title son el nombre del artista y la canción que quiero buscar similares
+```
+#### 6. Obtener canciones que son de un cierto feeling
+```
+http://localhost:5001/song_by_feeling?feeling=my_feeling
+```
+Donde my_feeling ouede ser o "positive" o "negative"
+#### 7. Obtener todas las canciones
+```
+http://localhost:5001/songs
+```
+#### 8. Obtener datos de canción específica
+```
+http://localhost:5001/songs?title=my_title&artist=my_artist
+```
+
+donde my_artist y my_title son el nombre del artista y la canción que quiero buscar
+
+#### 9. Insertar canción
+
+con curl sería asi:
+```
+curl -X POST "http://localhost:5001/songs" -H  "accept: application/json" -H  "Content-Type: multipart/form-data" -F "artist=queen" -F "file=@Queen_-_Radio_Ga_Ga.mid;type=audio/midi"
+```
+en este ejemplo, el artista es queen, y el archivo es un midi de radio gaga
+
+#### 10. Conseguir las pistas de una canción
+
+```
+http://localhost:5001/tracks?title=my_title&artist=my_artist
+```
+
+donde my_artist y my_title son el nombre del artista y la canción que quiero buscar
