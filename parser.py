@@ -11,6 +11,7 @@ class Track(object):
     title = ""
     instrument = 0
     avg_pressure = 0
+    chordStack = ChordStack.ChordStack()
 
     # The class "constructor" - It's actually an initializer 
     def __init__(self, title, instrument, avg_pressure):
@@ -34,11 +35,9 @@ class Note(object):
 
 
 def header_switch(row):
-    print('boca:' + row.__str__())
     if row[2] == ' Title_t' or row[2] == ' Marker_t':
         global title
         title = row[3]
-        print('robert watson' + title)
     elif row[2] == ' Time_signature':
         global time_signature
         time_signature = int(row[3]).__int__().__str__() + '/' + int(row[4]).__int__().__str__()
@@ -67,7 +66,6 @@ def parser(file, artist):
         notes = []
         chord = []
         bpm = 0
-        chordStack = ChordStack.ChordStack()
         for row in csv_reader:
             line_count += 1
             if row[2] == ' End_track':
@@ -92,7 +90,7 @@ def parser(file, artist):
                     if current_time == int(row[1]):
                         notes.append(int(row[4]))
                     else:
-                        if len(notes) > 1 and row[0] == '3':  # 3 for sample and 6 for one_of_us
+                        if len(notes) > 1:  # 3 for sample and 6 for one_of_us
                             # search_chord(chord)
                             print('\n')
                             print(current_time)
@@ -129,10 +127,10 @@ def parser(file, artist):
                                     if (fifth - base) == 7:
                                         if (third - base) == 4:
                                             print("Is Major: " + chord[i].name)
-                                            chordStack.add_chord(chord[i].name)
+                                            track.chordStack.add_chord(chord[i].name)
                                         elif (third - base) == 3:
                                             print('Is Minor: ' + chord[i].name + 'm')
-                                            chordStack.add_chord(chord[i].name)
+                                            track.chordStack.add_chord(chord[i].name)
                                     # elif (chord[1].col - chord[0].col) == 4 and (chord[2].col - chord[1].col) == 4:
                                     # print('Is Augmented: '+ chord[0].name + ' augmented') elif (chord[1].col - chord[
                                     # 0].col) == 3 and (chord[2].col - chord[1].col) == 3: print('Is Diminished: '+
@@ -159,11 +157,15 @@ def parser(file, artist):
         print("Tracks")
         avg_pressure = 0
         trackList = list()
+        chordStack = ChordStack.ChordStack()
         for t in tracks:
             trackList.append(Track(t.title.replace('"', ''), t.instrument, t.avg_pressure))
             print("Title:" + t.title)
             print("Instrument:" + str(t.instrument))
             print("Pressure: " + str(t.avg_pressure))
+            print("Chord progression: " + t.chordStack.get_chord_progression().__str__())
+            if chordStack is None or t.chordStack.get_chord_progression().__len__() > chordStack.get_chord_progression().__len__():
+                chordStack = t.chordStack
             avg_pressure += t.avg_pressure
             print('\n')
         if tracks.__len__() > 0:

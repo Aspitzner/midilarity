@@ -80,8 +80,10 @@ def insert():
     artist = request.form['artist']
     if file is None or artist is None:
         return "Missing parameters"
-    os.system('midicsv ' + file.filename + ' out.csv')
-    csv_file = open('out.csv')
+    os.system('touch input_mid.midi')
+    file.save('./input_mid.midi')
+    os.system('midicsv input_mid.midi out.csv')
+    csv_file = open('./out.csv')
     parser.parser(csv_file, artist)
     print(file.filename)
     print(artist)
