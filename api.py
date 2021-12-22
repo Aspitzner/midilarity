@@ -8,6 +8,7 @@ import parser
 from urllib.parse import unquote
 from apiflask import APIFlask, Schema, input, output, abort
 from apiflask.fields import Integer, String
+
 import json
 from flask_swagger_ui import get_swaggerui_blueprint
 
