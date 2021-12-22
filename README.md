@@ -62,6 +62,10 @@ $ docker run --name Myneo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none -d n
 - En el símbolo $, ejecutar :server connect (elegir No Authentication en Authentication type)
 
 ### Correr api
+- Entrar al archivo psql_connection.py, cambiar la linea 75, donde dice:
+con = psycopg2.connect(database="tp_midi", user="segundo", password="admin", host="localhost", port="5432")
+- y llenarla con los datos de la base de datos de uno
+    
 - Parado en la carpeta del proyecto, correr el siguiente comando:
 ```bash
 $ python3 api.py
