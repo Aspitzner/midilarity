@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import request
 import psql_connection
 import neo4j_connection
+import os
 import parser
 
 app = Flask(__name__)
@@ -79,7 +80,9 @@ def insert():
     artist = request.form['artist']
     if file is None or artist is None:
         return "Missing parameters"
-    
+    os.system('midicsv ' + file.filename + ' out.csv')
+    csv_file = open('out.csv')
+    parser.parser(csv_file, artist)
     print(file.filename)
     print(artist)
     return "Inserted succesfully"

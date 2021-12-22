@@ -1,5 +1,4 @@
 from py2neo import Graph
-from parser import Track
 graph = Graph(host="localhost")
 
 class SimpleSong(object):

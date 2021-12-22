@@ -58,6 +58,8 @@ class ChordStack:
         return self.chordList
 
     def get_key_signature(self):
+        if self.chordList.__len__() == 0:
+            return 'C'
         return self.chordList[-1]
 
     def is_minor(self, chord):
@@ -81,3 +83,13 @@ class ChordStack:
             return tension
 
         return tension / resets
+
+    def get_feeling(self):
+        total_count = self.chordList.__len__()
+        minor_count = 0
+        for chord in self.chordList:
+            if self.is_minor(chord):
+                minor_count += 1
+        if total_count == 0:
+            return 1
+        return 1 - minor_count/total_count
