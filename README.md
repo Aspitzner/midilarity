@@ -1,5 +1,7 @@
 # Midilarity
 ## Final Base de Datos 2
+## Tema
+- Creamos, poblamos y hacemos queries con archivos midi, comparando similitudes entre canciones, el feeling de cada una y más!
 ## Integrantes
 - Spitzner, Agustín - Legajo 60142
 - Donikian, Gastón - Legajo 60067
