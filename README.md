@@ -14,7 +14,7 @@
 - psycopg2
 - flask
 ## Compilación
--instalar las dependencias de pyhton con los comandos:
+- Instalar las dependencias de pyhton con los comandos:
 
 ```bash
 $ pip3 install py2neo
