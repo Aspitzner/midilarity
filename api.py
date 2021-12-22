@@ -12,7 +12,6 @@ from apiflask.fields import Integer, String
 from apiflask.validators import Length, OneOf
 
 from fastapi import FastAPI
-import uvicorn
 import json
 
 from flask import Flask
