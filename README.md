@@ -9,10 +9,14 @@
 - docker
 - neo4j
 - postgres
+- 
 ### Librerías de pyhton
 - py2neo
 - psycopg2
 - flask
+- flask_swagger_ui
+- fastapi
+- apiflask
 ## Compilación
 - Instalar las dependencias de pyhton con los comandos:
 
@@ -24,6 +28,15 @@ $ pip3 install psycopg2
 ```
 ```bash
 $ pip3 install flask
+```
+```bash
+$ pip3 install apiflask
+```
+```bash
+$ pip3 install fastapi
+```
+```bash
+$ pip3 install flask_swagger_ui
 ```
 
 ## Ejecución
@@ -45,3 +58,24 @@ $ docker pull neo4j
 ```bash
 $ docker run --name Myneo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none -d neo4j
 ```
+- Abrir un web browser para acceder a la interfaz Web de Neo4j: http://localhost:7474/browser
+- En el símbolo $, ejecutar :server connect (elegir No Authentication en Authentication type)
+
+### Correr api
+- Parado en la carpeta del proyecto, correr el siguiente comando:
+```bash
+$ python3 api.py
+```
+- La api corre por default en el puerto 5001
+- Se puede ver la documentación de la api en la url: http://localhost:5001/api/docs
+
+### Queries de la api
+#### 1.
+#### 2.
+#### 3.
+#### 4.
+#### 5.
+#### 6.
+#### 7.
+#### 8.
+#### 9.
